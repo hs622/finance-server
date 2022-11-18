@@ -10,13 +10,29 @@ type AuthorType {
   age: Int!
 }
 
+type BookType {
+  id: ID!
+  title: String!
+  total_pages: Int!
+  genre: String!
+  author_id: String!
+}
+
 type Query {
   author: String!
   authors: [AuthorType!]!
 }
 
 type Mutation {
+  createBook(input: BookInput!): BookType!
   createAuthor(input: AuthorInput!): AuthorType!
+}
+
+input BookInput {
+  title: String!
+  total_pages: Int!
+  genre: String!
+  author_id: ID!
 }
 
 input AuthorInput {
