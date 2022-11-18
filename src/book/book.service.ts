@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { Book } from './inferfaces/book.interface';
+import { Book } from './interfaces/book.interface';
 import { BookInput } from './inputs/book.input';
 
 export class BookService {
