@@ -18,6 +18,8 @@ type BlogType {
   description: String!
   author_id: ID!
   publish: Boolean!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Query {

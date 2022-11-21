@@ -1,8 +1,7 @@
 import { Inject } from '@nestjs/common';
-import { Model, Types } from 'mongoose';
+import { Error, Model, Types } from 'mongoose';
 import { Blog } from './interfaces/blog.interface';
 import { BlogInput } from './inputs/blog.input';
-import { isNull } from 'util';
 
 export class BlogService {
   constructor(
@@ -25,9 +24,8 @@ export class BlogService {
     return this.blogModel.find().exec();
   }
 
-  async findOne(blogId: Types.ObjectId): Promise<Blog | null> {
-    const blog = this.blogModel.findById(blogId).exec();
-    return blog ? blog : null;
+  async findOne(blogId: Types.ObjectId): Promise<Blog> {
+    return this.blogModel.findById(blogId).exec();
   }
 
   async remove(blogId: Types.ObjectId): Promise<Blog> {

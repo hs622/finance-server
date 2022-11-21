@@ -8,7 +8,7 @@ import { Types } from 'mongoose';
 export class BooksResolver {
   constructor(private readonly blogService: BlogService) {}
 
-  @Query(() => BlogType || null)
+  @Query(() => BlogType)
   async blog(
     @Args({ name: '_id', type: () => String }) blogId: Types.ObjectId,
   ) {
