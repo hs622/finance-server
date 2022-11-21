@@ -1,8 +1,8 @@
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 export interface Book extends Document {
   readonly title: String;
-  readonly total_pages: number;
   readonly genre: String;
-  readonly author_id: String;
+  readonly total_pages: number;
+  readonly author_id: mongoose.Types.ObjectId;
 }
