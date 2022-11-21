@@ -1,8 +1,8 @@
 import { Document } from 'mongoose';
 
 export interface Author extends Document {
-  readonly firstName: string;
-  readonly lastName: string;
+  readonly first_name: string;
+  readonly last_name: string;
   readonly gender: string;
   readonly age: number;
 }
