@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export const BookSchema = new mongoose.Schema({
   title: String,
-  total_page: String,
-  age: Number,
-  gender: String,
+  genre: String,
+  total_pages: Number,
+  author_id: mongoose.Types.ObjectId,
 });
