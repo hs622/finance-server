@@ -12,4 +12,9 @@ export class AuthorType {
   readonly gender: String;
   @Field((type) => Int)
   readonly age: number;
+
+  @Field()
+  readonly createdAt: String;
+  @Field()
+  readonly updatedAt: String;
 }

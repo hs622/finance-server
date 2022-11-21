@@ -8,6 +8,8 @@ type AuthorType {
   last_name: String!
   gender: String!
   age: Int!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type BlogType {

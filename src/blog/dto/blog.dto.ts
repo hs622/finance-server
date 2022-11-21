@@ -19,4 +19,8 @@ export class BlogType {
 
   @Field()
   readonly publish: Boolean;
+  @Field()
+  readonly createdAt: String;
+  @Field()
+  readonly updatedAt: String;
 }
