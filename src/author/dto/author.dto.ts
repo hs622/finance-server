@@ -2,12 +2,12 @@ import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class AuthorType {
-  @Field(() => ID)
-  id: String;
+  @Field((type) => ID)
+  _id: String;
   @Field()
-  readonly firstName: String;
+  readonly first_name: String;
   @Field()
-  readonly lastName: String;
+  readonly last_name: String;
   @Field()
   readonly gender: String;
   @Field((type) => Int)
