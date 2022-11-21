@@ -3,41 +3,47 @@
 # ------------------------------------------------------
 
 type AuthorType {
-  id: ID!
-  firstName: String!
-  lastName: String!
+  _id: ID!
+  first_name: String!
+  last_name: String!
   gender: String!
   age: Int!
 }
 
 type BookType {
-  id: ID!
+  _id: ID!
   title: String!
-  total_pages: Int!
   genre: String!
-  author_id: String!
+  total_pages: Int
+  author_id: ID!
 }
 
 type Query {
-  author: String!
+  book(_id: String!): BookType!
+  books: [BookType!]!
+  author(_id: String!): AuthorType!
   authors: [AuthorType!]!
 }
 
 type Mutation {
-  createBook(input: BookInput!): BookType!
-  createAuthor(input: AuthorInput!): AuthorType!
+  createBook(data: BookInput!): BookType!
+  updateAuthor(data: AuthorInput!): AuthorType!
+  createAuthor(data: AuthorInput!): AuthorType!
+  removeAuthor(_id: String!): AuthorType!
 }
 
 input BookInput {
+  _id: ID
   title: String!
-  total_pages: Int!
   genre: String!
+  total_pages: Int!
   author_id: ID!
 }
 
 input AuthorInput {
-  firstName: String!
-  lastName: String!
+  _id: ID
+  first_name: String!
+  last_name: String
   gender: String!
   age: Int!
 }
