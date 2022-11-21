@@ -1,15 +1,18 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Types } from 'mongoose';
 import { AuthorService } from './author.service';
-import { AuthorType } from './dto/create-author.dto';
+import { AuthorType } from './dto/author.dto';
 import { AuthorInput } from './inputs/author.input';
 
 @Resolver()
 export class AuthorsResolver {
   constructor(private readonly authorsService: AuthorService) {}
 
-  @Query(() => String)
-  async author() {
-    return 'hello';
+  @Query(() => AuthorType)
+  async author(
+    @Args({ name: '_id', type: () => String }) authorId: Types.ObjectId,
+  ) {
+    return this.authorsService.findOne(authorId);
   }
 
   @Query(() => [AuthorType])
@@ -18,13 +21,19 @@ export class AuthorsResolver {
   }
 
   @Mutation(() => AuthorType)
-  async createAuthor(@Args('input') input: AuthorInput) {
+  async createAuthor(@Args('data') input: AuthorInput) {
     return this.authorsService.create(input);
   }
 
-  //   @ResolveField()
-  //   async posts(@Parent() author: Author) {
-  //     const { id } = author;
-  //     return this.postsService.findAll({ authorId: id });
-  //   }
+  @Mutation(() => AuthorType)
+  async updateAuthor(@Args('data') input: AuthorInput) {
+    return this.authorsService.update(input);
+  }
+
+  @Mutation(() => AuthorType)
+  async removeAuthor(
+    @Args({ name: '_id', type: () => String }) authorId: Types.ObjectId,
+  ) {
+    return this.authorsService.remove(authorId);
+  }
 }

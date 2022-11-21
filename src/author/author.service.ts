@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import { Author } from './interfaces/author.interface';
 import { AuthorInput } from './inputs/author.input';
@@ -10,8 +10,8 @@ export class AuthorService {
     private authorModel: Model<Author>,
   ) {}
 
-  async create(createAuhtorDto: AuthorInput): Promise<Author> {
-    const createdAuthor = new this.authorModel(createAuhtorDto);
+  async create(auhtorDto: AuthorInput): Promise<Author> {
+    const createdAuthor = new this.authorModel(auhtorDto);
     return createdAuthor.save();
   }
 
@@ -19,7 +19,19 @@ export class AuthorService {
     return this.authorModel.find().exec();
   }
 
-  // async findOne(): Promise<Author[]> {
-  //   return this.authorModel.findById().exec();
-  // }
+  async findOne(authorId: Types.ObjectId): Promise<Author> {
+    return this.authorModel.findById(authorId).exec();
+  }
+
+  async update(auhtorDto: AuthorInput): Promise<Author> {
+    return this.authorModel.findByIdAndUpdate(
+      { _id: auhtorDto._id },
+      auhtorDto,
+      { new: true },
+    );
+  }
+
+  async remove(authorId: Types.ObjectId): Promise<Author> {
+    return this.authorModel.findByIdAndRemove(authorId);
+  }
 }

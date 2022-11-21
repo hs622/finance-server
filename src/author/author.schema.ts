@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
 
 export const AuthorSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
+  first_name: String,
+  last_name: String,
   age: Number,
   gender: String,
 });
