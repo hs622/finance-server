@@ -10,36 +10,40 @@ type AuthorType {
   age: Int!
 }
 
-type BookType {
+type BlogType {
   _id: ID!
   title: String!
+  tagline: String
   genre: String!
-  total_pages: Int
+  description: String!
   author_id: ID!
+  publish: Boolean!
 }
 
 type Query {
-  book(_id: String!): BookType!
-  books: [BookType!]!
+  blog(_id: String!): BlogType!
+  blogs: [BlogType!]!
   author(_id: String!): AuthorType!
   authors: [AuthorType!]!
 }
 
 type Mutation {
-  createBook(data: BookInput!): BookType!
-  updateBook(data: BookInput!): BookType!
-  removeBook(_id: String!): BookType!
+  createBlog(data: BlogInput!): BlogType!
+  updateBlog(data: BlogInput!): BlogType!
+  removeBlog(_id: String!): BlogType!
   createAuthor(data: AuthorInput!): AuthorType!
   updateAuthor(data: AuthorInput!): AuthorType!
   removeAuthor(_id: String!): AuthorType!
 }
 
-input BookInput {
+input BlogInput {
   _id: ID
   title: String!
+  tagline: String
   genre: String!
-  total_pages: Int!
+  description: String!
   author_id: ID!
+  publish: Boolean!
 }
 
 input AuthorInput {

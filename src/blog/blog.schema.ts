@@ -1,8 +1,10 @@
 import * as mongoose from 'mongoose';
 
-export const BookSchema = new mongoose.Schema({
+export const BlogSchema = new mongoose.Schema({
   title: String,
+  tagline: String,
   genre: String,
-  total_pages: Number,
+  description: String,
   author_id: mongoose.Types.ObjectId,
+  publish: Boolean,
 });
