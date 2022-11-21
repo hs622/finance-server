@@ -27,4 +27,8 @@ export class BookService {
   async findOne(bookId: Types.ObjectId): Promise<Book> {
     return this.bookModel.findById(bookId).exec();
   }
+
+  async remove(bookId: Types.ObjectId): Promise<Book> {
+    return this.bookModel.findByIdAndRemove(bookId);
+  }
 }

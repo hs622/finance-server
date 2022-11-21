@@ -26,7 +26,14 @@ export class BooksResolver {
   }
 
   @Mutation(() => BookType)
-  async updateAuthor(@Args('data') input: BookInput) {
+  async updateBook(@Args('data') input: BookInput) {
     return this.bookService.update(input);
+  }
+
+  @Mutation(() => BookType)
+  async removeBook(
+    @Args({ name: '_id', type: () => String }) bookId: Types.ObjectId,
+  ) {
+    return this.bookService.remove(bookId);
   }
 }
