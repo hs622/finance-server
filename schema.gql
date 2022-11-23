@@ -7,7 +7,7 @@ type AuthorType {
   first_name: String!
   last_name: String!
   gender: String!
-  age: Int!
+  age: Int
   createdAt: String!
   updatedAt: String!
 }
