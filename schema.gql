@@ -24,6 +24,21 @@ type BlogType {
   updatedAt: String!
 }
 
+type LoginType {
+  access_token: String!
+}
+
+type RegisterType {
+  _id: ID!
+  first_name: String!
+  email: String!
+  last_name: String
+  password: String
+  gender: String
+  dob: String
+  access_token: String!
+}
+
 type Query {
   blog(_id: String!): BlogType!
   blogs: [BlogType!]!
@@ -32,12 +47,29 @@ type Query {
 }
 
 type Mutation {
+  login(data: LoginInput!): LoginType!
+  register(data: UserInput!): RegisterType!
   createBlog(data: BlogInput!): BlogType!
   updateBlog(data: BlogInput!): BlogType!
   removeBlog(_id: String!): BlogType!
   createAuthor(data: AuthorInput!): AuthorType!
   updateAuthor(data: AuthorInput!): AuthorType!
   removeAuthor(_id: String!): AuthorType!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input UserInput {
+  _id: ID
+  first_name: String!
+  last_name: String
+  email: String!
+  password: String!
+  gender: String
+  dob: String
 }
 
 input BlogInput {

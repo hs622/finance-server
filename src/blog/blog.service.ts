@@ -9,13 +9,13 @@ export class BlogService {
     private blogModel: Model<Blog>,
   ) {}
 
-  async create(blogDto: BlogInput): Promise<Blog> {
-    const createdBlog = new this.blogModel(blogDto);
+  async create(blog: BlogInput): Promise<Blog> {
+    const createdBlog = new this.blogModel(blog);
     return createdBlog.save();
   }
 
-  async update(blogDto: BlogInput): Promise<Blog> {
-    return this.blogModel.findByIdAndUpdate({ _id: blogDto._id }, blogDto, {
+  async update(blog: BlogInput): Promise<Blog> {
+    return this.blogModel.findByIdAndUpdate({ _id: blog._id }, blog, {
       new: true,
     });
   }

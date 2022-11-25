@@ -10,8 +10,10 @@ export class AuthorType {
   readonly last_name: String;
   @Field()
   readonly gender: String;
-  @Field((type) => Int)
+  @Field((type) => Int, { nullable: true })
   readonly age: number;
+  // @Field()
+  // readonly
 
   @Field()
   readonly createdAt: String;

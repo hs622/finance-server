@@ -1,5 +1,4 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
-import { Date } from 'mongoose';
 
 @ObjectType()
 export class BlogType {

@@ -10,8 +10,8 @@ export class AuthorService {
     private authorModel: Model<Author>,
   ) {}
 
-  async create(auhtorDto: AuthorInput): Promise<Author> {
-    const createdAuthor = new this.authorModel(auhtorDto);
+  async create(auhtor: AuthorInput): Promise<Author> {
+    const createdAuthor = new this.authorModel(auhtor);
     return createdAuthor.save();
   }
 
@@ -23,12 +23,10 @@ export class AuthorService {
     return this.authorModel.findById(authorId).exec();
   }
 
-  async update(auhtorDto: AuthorInput): Promise<Author> {
-    return this.authorModel.findByIdAndUpdate(
-      { _id: auhtorDto._id },
-      auhtorDto,
-      { new: true },
-    );
+  async update(auhtor: AuthorInput): Promise<Author> {
+    return this.authorModel.findByIdAndUpdate({ _id: auhtor._id }, auhtor, {
+      new: true,
+    });
   }
 
   async remove(authorId: Types.ObjectId): Promise<Author> {
