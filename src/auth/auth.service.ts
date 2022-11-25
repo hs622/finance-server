@@ -1,9 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ExecException } from 'child_process';
 import { User } from 'src/user/interfaces/user.interface';
 import { UserService } from 'src/user/user.service';
-import { jwtSecret } from './constants';
+import { jwtSecret, privateKey } from './constants';
 import { LoginInput } from './inputs/login.input';
 
 @Injectable()
@@ -17,11 +16,10 @@ export class AuthService {
     const currentUser: User = await this.userService.findUserByEmail(
       credentials.email,
     );
-
-    if (currentUser === null) throw new UnauthorizedException();
-
+    if (!currentUser) throw new UnauthorizedException();
     const isValidPassword = credentials.password === currentUser.password;
-    return isValidPassword ? currentUser : null;
+    if (!isValidPassword) throw new Error("Credentials don't match");
+    return currentUser;
   }
 
   async login(user: User): Promise<{ access_token: string }> {
@@ -30,8 +28,13 @@ export class AuthService {
       sub: user._id,
     };
 
+    const options = {
+      secret: jwtSecret,
+      privateKey: privateKey,
+    };
+
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, options),
     };
   }
 

@@ -5,7 +5,6 @@ import { AuthService } from './auth.service';
 import { LoginType } from './dto/login.dto';
 import { RegisterType } from './dto/register.dto';
 import { LoginInput } from './inputs/login.input';
-import { RegisterInput } from './inputs/register.input';
 
 @Resolver()
 export class AuthResolver {
@@ -16,25 +15,20 @@ export class AuthResolver {
 
   @Mutation(() => LoginType)
   async login(@Args('data') credentials: LoginInput) {
-    try {
-      const current_user = this.authServivce.validate(credentials);
-    } catch (error) {
-      console.log(error);
-    }
-
-    // if ( null === )
-    //  return this.authServivce.login();
-    return 'login';
+    const newUserCreated = await this.authServivce.validate(credentials);
+    const token = this.authServivce.login(newUserCreated);
+    const registerObj = { ...token, ...newUserCreated };
+    return registerObj;
   }
 
   @Mutation(() => RegisterType)
   async register(@Args('data') user: UserInput) {
-    console.log(user);
-    const register = {
-      user,
-      access_token: 'asdasdasd',
-    };
+    const isEmailExist = this.userService.findUserByEmail(user.email);
+    if (isEmailExist) throw new Error('Email already taken!');
 
-    return register;
+    const newUserCreated = await this.userService.createUser(user);
+    const token = this.authServivce.login(newUserCreated);
+    const registerObj = { ...token, ...newUserCreated };
+    return registerObj;
   }
 }

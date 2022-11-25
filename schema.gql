@@ -25,6 +25,13 @@ type BlogType {
 }
 
 type LoginType {
+  _id: ID!
+  first_name: String!
+  email: String!
+  last_name: String
+  password: String
+  gender: String
+  dob: String
   access_token: String!
 }
 
