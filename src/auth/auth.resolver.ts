@@ -15,10 +15,9 @@ export class AuthResolver {
 
   @Mutation(() => LoginType)
   async login(@Args('data') credentials: LoginInput) {
-    const newUserCreated = await this.authServivce.validate(credentials);
-    const token = this.authServivce.login(newUserCreated);
-    const registerObj = { ...token, ...newUserCreated };
-    return registerObj;
+    const _user = await this.authServivce.validate(credentials);
+    const token = await this.authServivce.login(_user);
+    return { ...token, _user: _user };
   }
 
   @Mutation(() => RegisterType)
@@ -27,8 +26,7 @@ export class AuthResolver {
     if (isEmailExist) throw new Error('Email already taken!');
 
     const newUserCreated = await this.userService.createUser(user);
-    const token = this.authServivce.login(newUserCreated);
-    const registerObj = { ...token, ...newUserCreated };
-    return registerObj;
+    const token = await this.authServivce.login(newUserCreated);
+    return { ...token, _user: newUserCreated };
   }
 }

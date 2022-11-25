@@ -24,7 +24,7 @@ type BlogType {
   updatedAt: String!
 }
 
-type LoginType {
+type UserType {
   _id: ID!
   first_name: String!
   email: String!
@@ -32,18 +32,16 @@ type LoginType {
   password: String
   gender: String
   dob: String
+}
+
+type LoginType {
   access_token: String!
+  _user: UserType!
 }
 
 type RegisterType {
-  _id: ID!
-  first_name: String!
-  email: String!
-  last_name: String
-  password: String
-  gender: String
-  dob: String
   access_token: String!
+  _user: UserType!
 }
 
 type Query {
