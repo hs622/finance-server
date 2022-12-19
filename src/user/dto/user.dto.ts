@@ -1,7 +1,9 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Schema } from '@nestjs/mongoose';
 
+@Schema()
 @ObjectType()
-export class UserType {
+export class UserResponse {
   @Field(() => ID)
   readonly _id: String;
   @Field()
