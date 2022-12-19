@@ -1,11 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UserType } from 'src/user/dto/user.dto';
+import { UserResponse } from 'src/user/dto/user.dto';
 
 @ObjectType()
-export class RegisterType {
+export class RegisterResponse {
   @Field()
   readonly access_token: String;
 
   @Field()
-  readonly _user: UserType;
+  readonly _user: UserResponse;
 }
