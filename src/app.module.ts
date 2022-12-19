@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
+// import { AppService } from './app.service';
+// import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthorModule } from './author/author.module';
@@ -14,7 +14,8 @@ import { join } from 'path';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
-      autoSchemaFile: join(process.cwd(), 'schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
       // definitions: {
       //   path: join(process.cwd(), 'schema.ts'),
       // },
@@ -24,7 +25,7 @@ import { join } from 'path';
     BookModule,
     AuthorModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  // controllers: [AppController],
+  // providers: [AppService,],
 })
 export class AppModule {}

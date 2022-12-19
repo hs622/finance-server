@@ -1,0 +1,96 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AuthorInput {
+  _id: ID
+  age: Int!
+  first_name: String!
+  gender: String!
+  last_name: String
+}
+
+type AuthorResponse {
+  _id: ID!
+  age: Int
+  createdAt: String!
+  first_name: String!
+  gender: String!
+  last_name: String!
+  updatedAt: String!
+}
+
+input BlogInput {
+  _id: ID
+  author_id: ID!
+  description: String!
+  genre: String!
+  publish: Boolean!
+  tagline: String
+  title: String!
+}
+
+type BlogResponse {
+  _id: ID!
+  author_id: ID!
+  createdAt: String!
+  description: String!
+  genre: String!
+  publish: Boolean!
+  tagline: String
+  title: String!
+  updatedAt: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginResponse {
+  _user: UserResponse!
+  access_token: String!
+}
+
+type Mutation {
+  createAuthor(data: AuthorInput!): AuthorResponse!
+  createBlog(data: BlogInput!): BlogResponse!
+  login(loginInput: LoginInput!): LoginResponse!
+  register(registerInput: RegisterInput!): RegisterResponse!
+  removeAuthor(_id: String!): AuthorResponse!
+  removeBlog(_id: String!): BlogResponse!
+  updateAuthor(data: AuthorInput!): AuthorResponse!
+  updateBlog(data: BlogInput!): BlogResponse!
+}
+
+type Query {
+  author(_id: String!): AuthorResponse!
+  authors: [AuthorResponse!]!
+  blog(_id: String!): BlogResponse!
+  blogs: [BlogResponse!]!
+}
+
+input RegisterInput {
+  _id: ID
+  dob: String
+  email: String!
+  first_name: String!
+  gender: String
+  last_name: String
+  password: String!
+}
+
+type RegisterResponse {
+  _user: UserResponse!
+  access_token: String!
+}
+
+type UserResponse {
+  _id: ID!
+  dob: String
+  email: String!
+  first_name: String!
+  gender: String
+  last_name: String
+  password: String
+}
