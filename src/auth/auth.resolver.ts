@@ -1,10 +1,12 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { UserInput } from 'src/user/inputs/user.input';
+import { UseGuards } from '@nestjs/common';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
-import { LoginType } from './dto/login.dto';
-import { RegisterType } from './dto/register.dto';
+import { LoginResponse } from './dto/login.dto';
+import { RegisterResponse } from './dto/register.dto';
+import { GqlAuthGrard } from './guards/local-auth.gaurd';
 import { LoginInput } from './inputs/login.input';
+import { RegisterInput } from './inputs/register.input';
 
 @Resolver()
 export class AuthResolver {
@@ -13,16 +15,16 @@ export class AuthResolver {
     private readonly authServivce: AuthService,
   ) {}
 
-  @Mutation(() => LoginType)
-  async login(@Args('data') credentials: LoginInput) {
-    const _user = await this.authServivce.validate(credentials);
-    const token = await this.authServivce.login(_user);
-    return { ...token, _user: _user };
+  @Mutation(() => LoginResponse)
+  @UseGuards(GqlAuthGrard)
+  async login(@Args('loginInput') credentials: LoginInput, @Context() context) {
+    const token = await this.authServivce.login(context.user);
+    return { _user: context.user, ...token };
   }
 
-  @Mutation(() => RegisterType)
-  async register(@Args('data') user: UserInput) {
-    const isEmailExist = this.userService.findUserByEmail(user.email);
+  @Mutation(() => RegisterResponse)
+  async register(@Args('registerInput') user: RegisterInput) {
+    const isEmailExist = await this.userService.findUserByEmail(user.email);
     if (isEmailExist) throw new Error('Email already taken!');
 
     const newUserCreated = await this.userService.createUser(user);

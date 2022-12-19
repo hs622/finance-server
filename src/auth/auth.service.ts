@@ -16,9 +16,6 @@ export class AuthService {
     const currentUser: User = await this.userService.findUserByEmail(
       credentials.email,
     );
-    if (!currentUser) throw new UnauthorizedException();
-    const isValidPassword = credentials.password === currentUser.password;
-    if (!isValidPassword) throw new Error("Credentials don't match");
     return currentUser;
   }
 

@@ -5,11 +5,12 @@ import { UserModule } from 'src/user/user.module';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { jwtSecret } from './constants';
+import { LocalStrategy } from './strategies/local-strategy';
 
 @Module({
   imports: [
     UserModule,
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    PassportModule.register({ defaultStrategy: 'local' }),
     JwtModule.register({
       secret: jwtSecret,
       signOptions: {
@@ -17,6 +18,6 @@ import { jwtSecret } from './constants';
       },
     }),
   ],
-  providers: [AuthResolver, AuthService, JwtService],
+  providers: [AuthResolver, AuthService, JwtService, LocalStrategy],
 })
 export class AuthModule {}
