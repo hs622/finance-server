@@ -19,12 +19,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  validate(access_token: string): Promise<User> {
-    const payload = this.jwtService.verify(access_token, {
-      secret: jwtSecret,
-    });
+  // validate(access_token: string): Promise<User> {
+  //   const payload = this.jwtService.verify(access_token, {
+  //     secret: jwtSecret,
+  //   });
 
-    const user = this.userService.findUserByEmail(payload.email);
-    return user;
-  }
+  //   console.log({ payload });
+
+  //   const user = this.userService.findUserByEmail(payload.email);
+  //   return user;
+  // }
 }

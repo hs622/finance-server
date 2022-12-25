@@ -1,5 +1,7 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Types } from 'mongoose';
+import { Gql_JWTAuthGaurd } from 'src/auth/guards/jwt-auth.gaurd';
 import { AuthorService } from './author.service';
 import { AuthorResponse } from './dto/author.dto';
 import { AuthorInput } from './inputs/author.input';
@@ -9,6 +11,7 @@ export class AuthorsResolver {
   constructor(private readonly authorsService: AuthorService) {}
 
   @Query(() => AuthorResponse)
+  @UseGuards(Gql_JWTAuthGaurd)
   async author(
     @Args({ name: '_id', type: () => String }) authorId: Types.ObjectId,
   ) {

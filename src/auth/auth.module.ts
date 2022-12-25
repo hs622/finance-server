@@ -5,6 +5,7 @@ import { UserModule } from 'src/user/user.module';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { jwtSecret } from './constants';
+import { JwtStrategy } from './strategies/jwt-strategy';
 import { LocalStrategy } from './strategies/local-strategy';
 
 @Module({
@@ -18,6 +19,12 @@ import { LocalStrategy } from './strategies/local-strategy';
       },
     }),
   ],
-  providers: [AuthResolver, AuthService, JwtService, LocalStrategy],
+  providers: [
+    AuthResolver,
+    AuthService,
+    JwtService,
+    LocalStrategy,
+    JwtStrategy,
+  ],
 })
 export class AuthModule {}

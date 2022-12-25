@@ -4,7 +4,7 @@ import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { LoginResponse } from './dto/login.dto';
 import { RegisterResponse } from './dto/register.dto';
-import { GqlAuthGrard } from './guards/local-auth.gaurd';
+import { Gql_LocalAuthGrard } from './guards/local-auth.gaurd';
 import { LoginInput } from './inputs/login.input';
 import { RegisterInput } from './inputs/register.input';
 
@@ -16,7 +16,7 @@ export class AuthResolver {
   ) {}
 
   @Mutation(() => LoginResponse)
-  @UseGuards(GqlAuthGrard)
+  @UseGuards(Gql_LocalAuthGrard)
   async login(@Args('loginInput') credentials: LoginInput, @Context() context) {
     const token = await this.authServivce.login(context.user);
     return { _user: context.user, ...token };
